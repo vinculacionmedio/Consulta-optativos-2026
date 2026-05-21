@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cursos Optativos 2026 · Consulta de inscripción</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4A843;
+    --gold-light: #FBF3DC;
+    --ink: #2A2A28;
+    --ink-mid: #555550;
+    --ink-soft: #9A9A90;
+    --cream: #F9F7F2;
+    --white: #FFFFFF;
+    --border: #E4E0D4;
+    --green: #2D7A5A;
+    --green-light: #E8F5EE;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .header {
+    background: var(--ink);
+    padding: 1.5rem 2rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .header-left h1 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .header-left p {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.45);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .header-badge {
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Main */
+  .main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: 100%;
+    max-width: 560px;
+    overflow: hidden;
+  }
+
+  .card-top {
+    background: var(--gold);
+    padding: 1.5rem 2rem;
+  }
+
+  .card-top h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+
+  .card-top p {
+    font-size: 0.8rem;
+    color: rgba(42,42,40,0.65);
+  }
+
+  .card-body {
+    padding: 2rem;
+  }
+
+  .input-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .input-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+
+  .input-wrap {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .input-wrap input {
+    flex: 1;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--ink);
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .input-wrap input:focus {
+    border-color: var(--gold);
+    background: var(--white);
+  }
+
+  .input-wrap input::placeholder {
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    letter-spacing: 0;
+  }
+
+  .btn {
+    background: var(--ink);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    padding: 0.7rem 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'IBM Plex Sans', sans-serif;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn:hover { background: #111; }
+
+  /* Result */
+  .result { display: none; margin-top: 0.5rem; }
+  .result.visible { display: block; }
+
+  .result-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .result-ci {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-mid);
+  }
+
+  .result-programa {
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin-left: auto;
+  }
+
+  .courses-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+  }
+
+  .course-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--green-light);
+    border: 1px solid #C2E0D0;
+    border-radius: 4px;
+    margin-bottom: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--green);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .course-item::before {
+    content: '✓';
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--green);
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  .error-box {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: #991B1B;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .note {
+    margin-top: 1.5rem;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .note a {
+    color: var(--ink-mid);
+    text-decoration: underline;
+  }
+
+  .crono-link {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .crono-link a {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.6rem 1.25rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .crono-link a:hover { background: #111; }
+
+  /* Footer */
+  .footer {
+    background: var(--ink);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <h1>Programa de Posgrado en Evaluación Transformadora para la Sostenibilidad</h1>
+    <p>UTEC · Universidad Tecnológica del Uruguay · 2026</p>
+  </div>
+  <div class="header-badge">Cursos Optativos 2026</div>
+</header>
+
+<main class="main">
+  <div class="card">
+    <div class="card-top">
+      <h2>Consulta de inscripción</h2>
+      <p>Ingresá tu número de documento para ver los cursos en los que estás inscripto/a.</p>
+    </div>
+    <div class="card-body">
+      <div class="input-group">
+        <label>Número de documento (CI)</label>
+        <div class="input-wrap">
+          <input type="text" id="ci-input" placeholder="Ej: 12345678" inputmode="numeric" maxlength="12" />
+          <button class="btn" onclick="buscar()">Consultar</button>
+        </div>
+      </div>
+
+      <div class="result" id="result"></div>
+
+      <p class="note">Los datos reflejan las inscripciones registradas al cierre del período.<br>Consultas: <a href="mailto:deval@utec.edu.uy">deval@utec.edu.uy</a></p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  Programa ETS · UTEC · 2026 &nbsp;·&nbsp; deval@utec.edu.uy
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyCyx5frlOpmqsu434jHSKtCwQ3uAzDf4NM",
+  authDomain: "inscripciones-29e04.firebaseapp.com",
+  projectId: "inscripciones-29e04",
+  storageBucket: "inscripciones-29e04.firebasestorage.app",
+  messagingSenderId: "970697150804",
+  appId: "1:970697150804:web:47cf43e2323442d3b7f8c1"
+});
+
+const db = firebase.firestore();
+
+function limpiarCI(val) {
+  return val.replace(/\D/g, '');
+}
+
+async function buscar() {
+  const raw = document.getElementById('ci-input').value.trim();
+  const ci = limpiarCI(raw);
+  const resultDiv = document.getElementById('result');
+
+  if (!ci) {
+    resultDiv.className = 'result visible';
+    resultDiv.innerHTML = `<div class="error-box">⚠ Ingresá tu número de documento para consultar.</div>`;
+    return;
+  }
+
+  resultDiv.className = 'result visible';
+  resultDiv.innerHTML = `<div class="error-box" style="background:var(--cream);border-color:var(--border);color:var(--ink-mid)">Consultando...</div>`;
+
+  try {
+    const doc = await db.collection('students').doc(ci).get();
+
+    if (!doc.exists) {
+      resultDiv.innerHTML = `<div class="error-box">⚠ No se encontró inscripción para el documento <strong>${ci}</strong>. Verificá el número o escribí a <a href="mailto:deval@utec.edu.uy" style="color:inherit">deval@utec.edu.uy</a>.</div>`;
+      return;
+    }
+
+    const student = doc.data();
+    const coursesHTML = student.cursos.map(c =>
+      `<div class="course-item">${c}</div>`
+    ).join('');
+
+    resultDiv.innerHTML = `
+      <div class="result-header">
+        <span class="result-ci">CI: ${ci}</span>
+      </div>
+      <div class="courses-label">Matriculado/a a los siguientes cursos y/o seminarios</div>
+      ${coursesHTML}
+      <div class="crono-link">
+        <a href="https://vinculacionmedio.github.io/Cronograma-2026_PETS_UTEC/" target="_blank">
+          📅 Ver fechas en el cronograma 2026 →
+        </a>
+      </div>
+    `;
+  } catch (err) {
+    resultDiv.innerHTML = `<div class="error-box">⚠ Error al consultar. Intentá de nuevo más tarde.</div>`;
+  }
+}
+
+document.getElementById('ci-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') buscar();
+});
+</script>
+</body>
+</html>
